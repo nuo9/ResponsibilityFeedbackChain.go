@@ -23,7 +23,7 @@ func (this *Chain) AddMember(member *Member) int {
 }
 
 func (this *Chain) RunChain(param string, feedback bool) (interface{}, error) {
-	index := 0
+	index := -1
 	var result interface{} = nil
 	for i, v := range this.members {
 		r, e := (*v).Handle(param)
@@ -34,7 +34,7 @@ func (this *Chain) RunChain(param string, feedback bool) (interface{}, error) {
 		}
 	}
 
-	if index == 0 {
+	if index == -1 {
 		return nil, errors.New("no suitable chain Member")
 	}
 
