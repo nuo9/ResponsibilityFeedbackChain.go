@@ -72,7 +72,7 @@ func main() {
 	var m3 ResponsibilityFeedbackChain.Member = &obj3{}
 	chain.AddMember(&m3)
 
-	v := chain.RunChain("3", true)
+	v, _ := chain.RunChain("3", true)
 
 	fmt.Println(v)
 	fmt.Println(cache1["3"])

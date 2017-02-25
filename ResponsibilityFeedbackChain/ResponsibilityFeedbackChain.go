@@ -1,5 +1,9 @@
 package ResponsibilityFeedbackChain
 
+import (
+	"errors"
+)
+
 type Chain struct {
 	members []*Member
 }
@@ -18,7 +22,7 @@ func (this *Chain) AddMember(member *Member) int {
 	return len(this.members)
 }
 
-func (this *Chain) RunChain(param string, feedback bool) interface{} {
+func (this *Chain) RunChain(param string, feedback bool) (interface{}, error) {
 	index := 0
 	var result interface{} = nil
 	for i, v := range this.members {
@@ -30,13 +34,13 @@ func (this *Chain) RunChain(param string, feedback bool) interface{} {
 		}
 	}
 
-	if result == nil {
-		return nil
+	if index == 0 {
+		return nil, errors.New("no suitable chain Member")
 	}
 
 	for i := index - 1; feedback && i >= 0; i-- {
 		(*this.members[i]).Feedback(param, result)
 	}
 
-	return result
+	return result, nil
 }
