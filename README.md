@@ -12,7 +12,7 @@ After acquiring the result without errors, it can feed the result back to previo
     go get github.com/nuo9/ResponsibilityFeedbackChain.go/ResponsibilityFeedbackChain
     
 ### Usage
-##### For more details, see testChain.go
+##### For more details, see [testChain.go](https://github.com/nuo9/ResponsibilityFeedbackChain.go/blob/master/testChain.go)
     // create a chain
     chain := ResponsibilityFeedbackChain.NewRfChain()
     // create members
@@ -37,6 +37,9 @@ After acquiring the result without errors, it can feed the result back to previo
     chain.AddMember(&m1)
     // acquiring a result
     result := chain.RunChain("3", true)
+
+### Java Version
+[ResponsibilityFeedbackChain.java](https://github.com/nuo9/ResponsibilityFeedbackChain.java, "daye come to play!")
 
 ### MD Reference
     https://github.com/docker/docker/blob/master/README.md
