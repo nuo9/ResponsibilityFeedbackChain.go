@@ -5,8 +5,8 @@ type Chain struct {
 }
 
 type Member interface {
-	Handle(param string) (interface{}, error)
-	Feedback(param string, result interface{})
+	Handle(params interface{}) (interface{}, error)
+	Feedback(params interface{}, result interface{})
 }
 
 func NewRfChain() Chain {
@@ -18,11 +18,12 @@ func (this *Chain) AddMember(member *Member) int {
 	return len(this.members)
 }
 
-func (this *Chain) RunChain(param string, feedback bool) interface{} {
+// TODO: use generic types of params
+func (this *Chain) RunChain(params interface{}, feedback bool) interface{} {
 	index := 0
 	var result interface{} = nil
 	for i, v := range this.members {
-		r, e := (*v).Handle(param)
+		r, e := (*v).Handle(params)
 		if e == nil {
 			result = r
 			index = i
@@ -35,7 +36,7 @@ func (this *Chain) RunChain(param string, feedback bool) interface{} {
 	}
 
 	for i := index - 1; feedback && i >= 0; i-- {
-		(*this.members[i]).Feedback(param, result)
+		(*this.members[i]).Feedback(params, result)
 	}
 
 	return result
