@@ -19,7 +19,7 @@ func (this *Chain) AddMember(member *Member) int {
 }
 
 // TODO: use generic types of params
-func (this *Chain) RunChain(params interface{}, feedback bool) interface{} {
+func (this *Chain) RunChain(params interface{}, feedback bool, feedbackNil bool) interface{} {
 	index := 0
 	var result interface{} = nil
 	for i, v := range this.members {
@@ -31,12 +31,10 @@ func (this *Chain) RunChain(params interface{}, feedback bool) interface{} {
 		}
 	}
 
-	if result == nil {
-		return nil
-	}
-
-	for i := index - 1; feedback && i >= 0; i-- {
-		(*this.members[i]).Feedback(params, result)
+	if feedback && (result != nil || feedbackNil) {
+		for i := index - 1; i >= 0; i-- {
+			(*this.members[i]).Feedback(params, result)
+		}
 	}
 
 	return result
